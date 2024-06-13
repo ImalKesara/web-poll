@@ -23,6 +23,6 @@
     }
 
     .active{
-        @apply text-red-500  border-b-2 border-red-500
+        @apply text-purple-500  border-b-2 border-purple-500
     }
 </style>
