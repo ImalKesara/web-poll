@@ -7,6 +7,11 @@
   let items = ['Current Polls' ,'Add New Polls'];
   let activeItem = 'Current Polls';
 
+  function tabChange(e){
+    activeItem = e.detail
+    console.log('tag changed')
+  }
+
 </script>
 
 
@@ -15,7 +20,12 @@
 <Header />
 <main>
   <!-- you case use shorthand {items} like this -->
-  <Tabs items= {items} activeItem = {activeItem} />
+  <Tabs items= {items} activeItem = {activeItem}  on:tabChange={tabChange} />
+  {#if activeItem === "Current Polls"}
+    
+  {:else}
+
+  {/if}
 </main>
 <Footer />
 
