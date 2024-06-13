@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CreatePollForm from './Components/CreatePollForm/CreatePollForm.svelte';
   import Footer from './Components/Footer/Footer.svelte';
   import Header from './Components/Header/Header.svelte';
   import Tabs from './Shared/Tabs.svelte';
@@ -22,9 +23,9 @@
   <!-- you case use shorthand {items} like this -->
   <Tabs items= {items} activeItem = {activeItem}  on:tabChange={tabChange} />
   {#if activeItem === "Current Polls"}
-    
-  {:else}
-
+    <p>Current poll here</p>
+  {:else if activeItem === "Add New Polls"}
+    <CreatePollForm />
   {/if}
 </main>
 <Footer />
