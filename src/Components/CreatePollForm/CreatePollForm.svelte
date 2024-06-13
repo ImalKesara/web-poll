@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Buttons from "../../Shared/Buttons.svelte";
+
     let fields = {
         Question : '',
         answerA : '',
@@ -23,7 +25,7 @@
             <input id ="answer-b" type="text" placeholder="Answer B" bind:value={fields.answerB}>
         </div>
         <div class="flex justify-center">
-            <button class="bg-sky-500 p-3 rounded-md text-white font-bold ease duration-300 hover:bg-sky-600 inline-block">Add Poll</button>
+            <Buttons colors = "purple">Add Poll</Buttons>            
         </div>
 </form>
 
