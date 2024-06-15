@@ -1,6 +1,9 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
   import Buttons from '../../Shared/Buttons.svelte';
+  import { v4 as uuidv4 } from 'uuid';
 
+  const dispatch = createEventDispatcher();
   let valid: boolean = false; //when form going to valid this will become true
   let fields = {
     Question: '',
@@ -43,6 +46,8 @@
 
     if (valid) {
       console.log(fields);
+      let poll = { ...fields, voteA: 0, voteB: 0, id: uuidv4() };
+      dispatch('store', poll);
     }
 
     // fields.Question = '';
