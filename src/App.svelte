@@ -21,7 +21,7 @@
       Question: 'Javacript or python',
       answerA: 'javascript',
       answerB: 'python',
-      voteA: 9,
+      voteA: 20,
       voteB: 10,
     },
   ];
@@ -39,9 +39,7 @@
   <!-- you case use shorthand {items} like this -->
   <Tabs {items} {activeItem} on:tabChange={tabChange} />
   {#if activeItem === 'Current Polls'}
-    {#each polls as poll}
-      <Polllist />
-    {/each}
+    <Polllist {polls} />
   {:else if activeItem === 'Add New Polls'}
     <CreatePollForm on:store={store} />
   {/if}
