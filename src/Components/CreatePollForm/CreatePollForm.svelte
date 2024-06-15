@@ -1,42 +1,107 @@
 <script lang="ts">
-  import Buttons from "../../Shared/Buttons.svelte";
+  import Buttons from '../../Shared/Buttons.svelte';
 
-    let fields = {
-        Question : '',
-        answerA : '',
-        answerB : ''
-     }
-    const submitHandle = ()=>{
-        console.log(fields);
+  let valid: boolean = false; //when form going to valid this will become true
+  let fields = {
+    Question: '',
+    answerA: '',
+    answerB: '',
+  };
+
+  let errors = {
+    Question: '',
+    answerA: '',
+    answerB: '',
+  };
+
+  const submitHandle = () => {
+    //Question --
+    valid = true;
+    if (fields.Question.trim().length < 5) {
+      valid = false;
+      errors.Question = 'Question must be atleast five characters long';
+    } else {
+      errors.Question = '';
     }
+
+    //Answer A
+    if (fields.answerA.trim().length < 1) {
+      valid = false;
+      errors.answerA = 'Answer must be atleast one characters long';
+    } else {
+      errors.answerA = '';
+    }
+
+    //Answer B
+
+    if (fields.answerB.trim().length < 1) {
+      valid = false;
+      errors.answerB = 'Answer must be atleast one characters long';
+    } else {
+      errors.answerB = '';
+    }
+
+    if (valid) {
+      console.log(fields);
+    }
+
+    // fields.Question = '';
+    // fields.answerA = '';
+    // fields.answerB = '';
+  };
 </script>
 
-<form on:submit|preventDefault ={submitHandle} class="w-4/5 m-auto">
-        <div class="form-field">
-            <label for="question">Poll Question :</label>
-            <input id ="question" type="text" placeholder="Question" bind:value={fields.Question}>
-        </div>
-        <div class="form-field">
-            <label for="answer-a">Answer A :</label>
-            <input id ="answer-a" type="text" placeholder="Answer A" bind:value={fields.answerA}>
-        </div>
-        <div class="form-field">
-            <label for="answer-b">Answer B :</label>
-            <input id ="answer-b" type="text" placeholder="Answer B" bind:value={fields.answerB}>
-        </div>
-        <div class="flex justify-center">
-            <Buttons colors = "purple">Add Poll</Buttons>            
-        </div>
+<form on:submit|preventDefault={submitHandle} class="w-4/5 m-auto">
+  <div class="form-field">
+    <label for="question">Poll Question :</label>
+    <input
+      id="question"
+      type="text"
+      placeholder="Question"
+      bind:value={fields.Question}
+    />
+    <div class="error">{errors.Question}</div>
+  </div>
+
+  <div class="form-field">
+    <label for="answer-a">Answer A :</label>
+    <input
+      id="answer-a"
+      type="text"
+      placeholder="Answer A"
+      bind:value={fields.answerA}
+    />
+    <div class="error">{errors.answerA}</div>
+  </div>
+
+  <div class="form-field">
+    <label for="answer-b">Answer B :</label>
+    <input
+      id="answer-b"
+      type="text"
+      placeholder="Answer B"
+      bind:value={fields.answerB}
+    />
+    <div class="error">{errors.answerB}</div>
+  </div>
+
+  <div class="flex justify-center">
+    <Buttons colors="purple">Add Poll</Buttons>
+  </div>
 </form>
 
 <style>
-    .form-field{
-        @apply flex flex-col my-8
-    }
-    label{
-        @apply py-3
-    }
-    input{
-        @apply h-10 border-2 p-2 rounded-md
-    }
+  .form-field {
+    @apply flex flex-col my-5 ease-out duration-300;
+  }
+  label {
+    @apply py-3;
+  }
+  input {
+    @apply h-10 border-2 p-2 rounded-md;
+  }
+
+  .error {
+    @apply text-red-400 font-bold;
+  }
 </style>

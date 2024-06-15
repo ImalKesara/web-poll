@@ -8,9 +8,9 @@
 
 
 <div class="tabs">
-    <ul class="flex justify-center p-0 ">
+    <ul class="flex justify-center p-0">
     {#each items as item}
-        <li class="mx-5 text-xl text-gray-400 cursor-pointer" on:click={()=>dispatch('tabChange',item)} >
+        <li class="mx-5 text-xl text-gray-400 cursor-pointer " on:click={()=>dispatch('tabChange',item)} >
             <div class:active ={item===activeItem} >{item}</div>
         </li>
     {/each}
