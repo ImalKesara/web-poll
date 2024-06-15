@@ -6,7 +6,7 @@
 
 <div class="poll-list">
   {#each polls as poll (poll.id)}
-    <div class="list">
+    <div class="list w-full">
       <PollDetails {poll} />
     </div>
   {/each}
@@ -15,7 +15,8 @@
 <style>
   .poll-list {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 2em;
+    grid-gap: 1em;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
   }
 </style>
