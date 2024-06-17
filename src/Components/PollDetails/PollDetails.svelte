@@ -1,12 +1,22 @@
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
   import Card from '../../Shared/Card.svelte';
+  import Pollstore from '../../Store/Pollstore.ts';
 
   export let poll;
-  const dispatch = createEventDispatcher();
 
   function handleVote(option, id) {
-    dispatch('changeVote', { option: option, id: id });
+    Pollstore.update((currentPolls) => {
+      let copiedArray = [...currentPolls];
+      let findIndex = copiedArray.find((poll) => poll.id == id);
+      if (option === 'a') {
+        findIndex.voteA++;
+      }
+      if (option === 'b') {
+        findIndex.voteB++;
+      }
+
+      return copiedArray;
+    });
   }
 
   $: totalVotes = poll.voteA + poll.voteB;

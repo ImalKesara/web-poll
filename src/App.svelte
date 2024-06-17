@@ -6,6 +6,7 @@
   import Polllist from './Components/PollList/Polllist.svelte';
   import Tabs from './Shared/Tabs.svelte';
   import './app.css';
+  import Pollstore from './Store/Pollstore.ts';
 
   let items = ['Current Polls', 'Add New Polls'];
   let activeItem = 'Current Polls';
@@ -17,42 +18,11 @@
   }
 
   function saveToLocalStorage() {
-    window.localStorage.setItem(POLLS_STORE, JSON.stringify(polls));
+    window.localStorage.setItem(POLLS_STORE, JSON.stringify(Pollstore));
   }
-
-  //polls
-  let polls = [
-    {
-      id: 1,
-      Question: 'Javacript or python',
-      answerA: 'javascript',
-      answerB: 'python',
-      voteA: 20,
-      voteB: 10,
-    },
-  ];
 
   function store(e) {
-    const poll = e.detail;
-    polls = [...polls, poll];
-    saveToLocalStorage();
-    console.log(polls);
     activeItem = 'Current Polls';
-  }
-
-  function changeVote(e) {
-    console.log(e.detail);
-    const { id, option } = e.detail;
-    let copiedArray = [...polls];
-    let findIndex = copiedArray.find((poll) => poll.id == id);
-    if (option === 'a') {
-      findIndex.voteA++;
-    }
-    if (option === 'b') {
-      findIndex.voteB++;
-    }
-
-    polls = copiedArray;
     saveToLocalStorage();
   }
 
@@ -63,7 +33,7 @@
     }
     try {
       const data = JSON.parse(pollItms);
-      polls = data;
+      Pollstore.set(data);
     } catch (err) {
       console.error(err);
     }
@@ -75,7 +45,8 @@
   <!-- you case use shorthand {items} like this -->
   <Tabs {items} {activeItem} on:tabChange={tabChange} />
   {#if activeItem === 'Current Polls'}
-    <Polllist {polls} on:changeVote={changeVote} />
+    <!-- <Polllist {polls} on:changeVote={changeVote} /> -->
+    <Polllist />
   {:else if activeItem === 'Add New Polls'}
     <CreatePollForm on:store={store} />
   {/if}
