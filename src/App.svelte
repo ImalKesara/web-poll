@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import CreatePollForm from './Components/CreatePollForm/CreatePollForm.svelte';
   import Footer from './Components/Footer/Footer.svelte';
   import Header from './Components/Header/Header.svelte';
@@ -8,10 +9,15 @@
 
   let items = ['Current Polls', 'Add New Polls'];
   let activeItem = 'Current Polls';
+  const POLLS_STORE = 'pollsitems';
 
   function tabChange(e) {
     activeItem = e.detail;
     console.log('tag changed');
+  }
+
+  function saveToLocalStorage() {
+    window.localStorage.setItem(POLLS_STORE, JSON.stringify(polls));
   }
 
   //polls
@@ -29,6 +35,7 @@
   function store(e) {
     const poll = e.detail;
     polls = [...polls, poll];
+    saveToLocalStorage();
     console.log(polls);
     activeItem = 'Current Polls';
   }
@@ -46,7 +53,21 @@
     }
 
     polls = copiedArray;
+    saveToLocalStorage();
   }
+
+  onMount(() => {
+    const pollItms = window.localStorage.getItem(POLLS_STORE);
+    if (pollItms == null) {
+      return;
+    }
+    try {
+      const data = JSON.parse(pollItms);
+      polls = data;
+    } catch (err) {
+      console.error(err);
+    }
+  });
 </script>
 
 <Header />
