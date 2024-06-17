@@ -32,6 +32,21 @@
     console.log(polls);
     activeItem = 'Current Polls';
   }
+
+  function changeVote(e) {
+    console.log(e.detail);
+    const { id, option } = e.detail;
+    let copiedArray = [...polls];
+    let findIndex = copiedArray.find((poll) => poll.id == id);
+    if (option === 'a') {
+      findIndex.voteA++;
+    }
+    if (option === 'b') {
+      findIndex.voteB++;
+    }
+
+    polls = copiedArray;
+  }
 </script>
 
 <Header />
@@ -39,7 +54,7 @@
   <!-- you case use shorthand {items} like this -->
   <Tabs {items} {activeItem} on:tabChange={tabChange} />
   {#if activeItem === 'Current Polls'}
-    <Polllist {polls} />
+    <Polllist {polls} on:changeVote={changeVote} />
   {:else if activeItem === 'Add New Polls'}
     <CreatePollForm on:store={store} />
   {/if}

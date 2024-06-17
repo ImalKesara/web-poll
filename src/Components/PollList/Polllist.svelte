@@ -7,7 +7,7 @@
 <div class="poll-list">
   {#each polls as poll (poll.id)}
     <div class="list w-full">
-      <PollDetails {poll} />
+      <PollDetails {poll} on:changeVote />
     </div>
   {/each}
 </div>
