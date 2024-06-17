@@ -42,6 +42,7 @@
 </script>
 
 <Header />
+
 <main>
   <!-- you case use shorthand {items} like this -->
   <Tabs {items} {activeItem} on:tabChange={tabChange} />
