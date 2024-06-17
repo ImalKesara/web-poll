@@ -7,6 +7,7 @@
   import Tabs from './Shared/Tabs.svelte';
   import './app.css';
   import Pollstore from './Store/Pollstore.ts';
+  import { saveToLocalStorage } from './Store/Pollstore';
 
   let items = ['Current Polls', 'Add New Polls'];
   let activeItem = 'Current Polls';
@@ -17,9 +18,9 @@
     console.log('tag changed');
   }
 
-  function saveToLocalStorage() {
-    window.localStorage.setItem(POLLS_STORE, JSON.stringify(Pollstore));
-  }
+  // function saveToLocalStorage() {
+  //   window.localStorage.setItem(POLLS_STORE, JSON.stringify(Pollstore));
+  // }
 
   function store(e) {
     activeItem = 'Current Polls';
